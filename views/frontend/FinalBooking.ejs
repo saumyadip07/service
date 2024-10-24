@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Service</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 50px;
+            max-width: 600px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Book a Service</h2>
+        <form action="/book-service" method="POST">
+            <!-- Hidden input for serviceId -->
+            <input type="hidden" name="serviceId" value="<%= service._id %>">
+
+            <!-- Date Field -->
+            <div class="form-group">
+                <label for="date">Preferred Service Date</label>
+                <input type="date" id="date" name="date" class="form-control" required>
+            </div>
+
+            <!-- Address Field -->
+            <div class="form-group">
+                <label for="address">Service Address</label>
+                <textarea id="address" name="address" class="form-control" rows="3" placeholder="Enter your address" required></textarea>
+            </div>
+
+            <!-- Description Field -->
+            <div class="form-group">
+                <label for="description">Service Description</label>
+                <textarea id="description" name="description" class="form-control" rows="3" placeholder="Describe the service required" required></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-block">Book Service</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

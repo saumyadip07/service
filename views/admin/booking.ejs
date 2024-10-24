@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>All Bookings</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/admin/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="/admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="/admin/plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/admin/dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="/admin/plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="/admin/plugins/summernote/summernote-bs4.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <%- include('layout/navbar')%>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+<%- include('layout/sidebar',{admin})%>
+
+  <!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Dashboard</h1>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+   
+   
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">All Bookings</h1>
+        
+        <% if (bookings && bookings.length > 0) { %>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Booking ID</th>
+                            <th>Service Name</th>
+                            <th>Description</th>
+                            <th>User Name</th>
+                            <th>Address</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Employee Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% bookings.forEach((booking, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= booking.bookingId %></td>
+                                <td><%= booking.serviceDetails.title %></td>
+                                <td><%= booking.description%></td>
+                                <td><%= booking.userDetails.name %></td>
+                                <td><%= booking.address %></td>
+                                <td><%= new Date(booking.date).toLocaleDateString() %></td>
+                                <td><%= booking.status %></td>
+                              
+                                <td><%= booking.employeeDetails ? booking.employeeDetails.name : 'Not Assigned' %></td>
+
+                             
+
+                                
+                                    <td>
+                                    <% if(!(booking.employeeId)){ %>
+                                        <form action="/admin/booking/assign/<%= booking._id %>" method="POST">
+                                            
+                                            <div class="input-group">
+                                                <select class="form-select" name="employeeId" required>
+                                                    <option value="">Select Employee</option>
+                                                    <% employees.forEach(employee => { %>
+                                                        <option value="<%= employee._id %>"><%= employee.name %></option>
+                                                    <% }) %>
+                                                </select>
+                                                <button type="submit" class="btn btn-primary">Assign</button>
+                                            </div>
+                                        </form>
+
+                                        <% } else { %>
+                                    
+                                            <h5>Already assigned</h5>
+                                    <% } %>  
+                                    </td>
+                                
+
+                                
+                           
+                            
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        <% } else { %>
+            <div class="alert alert-warning text-center" role="alert">
+                No bookings available.
+            </div>
+        <% } %>
+    </div>
+
+
+    <!-- /.content -->
+</div>
+  <!-- /.content-wrapper -->
+<%- include('layout/footer')%>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="/admin/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="/admin/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="/admin/plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="/admin/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="/admin/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="/admin/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="/admin/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="/admin/plugins/moment/moment.min.js"></script>
+<script src="/admin/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="/admin/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/admin/dist/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="/admin/dist/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/admin/dist/js/demo.js"></script>
+</body>
+</html>

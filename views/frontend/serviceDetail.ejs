@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= service.title %> - Service Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .service-card {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: #ffffff;
+            margin-top: 50px;
+        }
+        .service-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .service-details h3 {
+            margin-top: 20px;
+            color: #343a40;
+        }
+        .service-details p {
+            font-size: 16px;
+            color: #6c757d;
+        }
+        .btn-primary {
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="service-card">
+            <h1 class="text-center"><%= service.title %></h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="<%= service.serviceImage %>" alt="<%= service.title %>" class="img-fluid">
+                </div>
+                <div class="col-md-6 service-details">
+                    <h3>Description</h3>
+                    <p><%= service.description %></p>
+                    <h4>Price: $<%= service.price %></h4>
+
+                    <!-- Book Now Button -->
+                    <form action="/booking/<%= service._id %>" method="POST">
+                        <button type="submit" class="btn btn-primary">Book Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
